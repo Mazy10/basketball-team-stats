@@ -1,10 +1,14 @@
+from copy import deepcopy
 from constants import TEAMS, PLAYERS
 
-def clean_data(PLAYERS):
+players = deepcopy(PLAYERS)
+teams = deepcopy(TEAMS)
 
-    cleaned = []
+def clean_data(players):
 
-    for player in PLAYERS:
+    cleaned_players = []
+
+    for player in players:
         fixed = {}
         fixed['name'] = player['name']
         fixed['guardians'] = player['guardians'].split(' and ')
@@ -13,9 +17,23 @@ def clean_data(PLAYERS):
         else:
             fixed['experience'] = False
         fixed['height'] = int(player['height'].split(' ')[0])
-        cleaned.append(fixed)                           
+        cleaned_players.append(fixed)                           
 
         
-    return cleaned
+    return cleaned_players
 
-print(clean_data(PLAYERS))
+def balanced_team(players, teams):
+
+    balanced = {team: [] for team in teams}
+
+    for index, player in enumerate(players):
+        team = teams[index % len(teams)]
+        balanced[team].append(player)
+    return balanced
+
+balanced = balanced_team(clean_data(players), teams)
+for team, team_players in balanced.items():
+    print('\n' + team)
+    print('-' * len(team))
+    for player in team_players:
+        print(player['name'])
