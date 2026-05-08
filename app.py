@@ -31,9 +31,75 @@ def balanced_team(players, teams):
         balanced[team].append(player)
     return balanced
 
-balanced = balanced_team(clean_data(players), teams)
-for team, team_players in balanced.items():
-    print('\n' + team)
-    print('-' * len(team))
+def display_team_stats(team_name, team_players):
+    total_players = len(team_players)
+
+    experienced_players = 0
+    inexperienced_players = 0
+
+    total_height = 0
+
+    player_names = []
+    guardians = []
+
     for player in team_players:
-        print(player['name'])
+        player_names.append(players['name'])
+        guardians.extend(players['guardians'])
+        total_height += players['height']
+        if player['experience']:
+            experienced_players += 1
+        else:
+            inexperienced_players += 1
+    
+    average_height = total_height / total_players
+
+    print(f'\nTeam: {team_name} Stats')
+    print('-' * 20)
+
+    print(f'Total players: {total_players}')
+    print(f'Total experienced: {experienced_players}')
+    print(f'Total inexperienced: {inexperienced_players}')
+    print(f'Average height: {average_height:.1f}')
+
+    print('\nPlayers on Team:')
+    print(', '.join(player_names))
+
+    print('\Guardians:')
+    print(', '.join(guardians))
+
+    input('\nPress ENTER to continue...')
+    
+def menu():
+    print('\nBASKETBALL TEAM STATS TOOL')
+    print('\n----MENU----')
+    print('\nHere are your choicesL:')
+    print('A) Display Team Stats')
+    print('B) Quit')
+
+def choose_team(balanced_team):
+    print('\nA) Panthers')
+    print('B) Bandits')
+    print('C) Warriors')
+
+    choice = input('n\Enter an option:    ').upper()
+
+    if choice == 'A':
+        display_team_stats('Panthers', balanced_team['Panthers'])
+    elif choice == 'B':
+        display_team_stats('Bandits', balanced_team['Bandits'])
+    elif choice == 'C':
+        display_team_stats('Warriors', balanced_team['Warriors'])
+    else:
+        print('\nInvalid option')
+
+if __name__ == "__main__":
+    while True:
+        menu()
+
+        option = input('n\Enter an option:    ').upper()
+        if option == 'A':
+            choose_team(balanced_team)
+        elif option == 'B':
+            print('\nGoodbye!')    
+        else:
+            print('\nInvalid option. Please try again')          
