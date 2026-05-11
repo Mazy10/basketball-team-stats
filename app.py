@@ -22,7 +22,7 @@ def clean_data(players):
         
     return cleaned_players
 
-def balanced_team(players, teams):
+def balance_teams(players, teams):
 
     balanced = {team: [] for team in teams}
 
@@ -43,9 +43,9 @@ def display_team_stats(team_name, team_players):
     guardians = []
 
     for player in team_players:
-        player_names.append(players['name'])
-        guardians.extend(players['guardians'])
-        total_height += players['height']
+        player_names.append(player['name'])
+        guardians.extend(player['guardians'])
+        total_height += player['height']
         if player['experience']:
             experienced_players += 1
         else:
@@ -64,7 +64,7 @@ def display_team_stats(team_name, team_players):
     print('\nPlayers on Team:')
     print(', '.join(player_names))
 
-    print('\Guardians:')
+    print('\nGuardians:')
     print(', '.join(guardians))
 
     input('\nPress ENTER to continue...')
@@ -81,7 +81,7 @@ def choose_team(balanced_team):
     print('B) Bandits')
     print('C) Warriors')
 
-    choice = input('n\Enter an option:    ').upper()
+    choice = input('\nEnter an option:    ').upper()
 
     if choice == 'A':
         display_team_stats('Panthers', balanced_team['Panthers'])
@@ -93,13 +93,21 @@ def choose_team(balanced_team):
         print('\nInvalid option')
 
 if __name__ == "__main__":
+
+    cleaned_players = clean_data(players)
+    balanced_team = balance_teams(cleaned_players, teams)
+    players = deepcopy(PLAYERS)
+    teams = deepcopy(TEAMS)
+
     while True:
         menu()
 
-        option = input('n\Enter an option:    ').upper()
+        option = input('\nEnter an option:    ').upper()
         if option == 'A':
             choose_team(balanced_team)
         elif option == 'B':
-            print('\nGoodbye!')    
+            print('\nGoodbye!')  
+            break  
         else:
-            print('\nInvalid option. Please try again')          
+            print('\nInvalid option. Please try again')    
+            continue      
