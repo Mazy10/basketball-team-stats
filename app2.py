@@ -31,8 +31,8 @@ def balance_teams(players, teams):
         balanced[team].append(player)
     return balanced
 
-def display_team_stats(team_name, team_players):
-    total_players = len(team_players)
+def display_team_stats(teams, players):
+    total_players = len(teams)
 
     experienced_players = 0
     inexperienced_players = 0
@@ -42,7 +42,7 @@ def display_team_stats(team_name, team_players):
     player_names = []
     guardians = []
 
-    for player in team_players:
+    for player in players:
         player_names.append(player['name'])
         guardians.extend(player['guardians'])
         total_height += player['height']
@@ -96,7 +96,9 @@ if __name__ == "__main__":
 
     cleaned_players = clean_data(players)
     balanced_team = balance_teams(cleaned_players, teams)
-    
+    players = deepcopy(PLAYERS)
+    teams = deepcopy(TEAMS)
+
     while True:
         menu()
 
@@ -108,4 +110,4 @@ if __name__ == "__main__":
             break  
         else:
             print('\nInvalid option. Please try again')    
-            continue      
+            continue   
