@@ -1,9 +1,6 @@
 from copy import deepcopy
 from constants import TEAMS, PLAYERS
 
-players = deepcopy(PLAYERS)
-teams = deepcopy(TEAMS)
-
 def clean_data(players):
 
     cleaned_players = []
@@ -94,6 +91,8 @@ def choose_team(balanced_team):
 
 if __name__ == "__main__":
 
+    players = deepcopy(PLAYERS)
+    teams = deepcopy(TEAMS)
     cleaned_players = clean_data(players)
     balanced_team = balance_teams(cleaned_players, teams)
     

@@ -31,8 +31,8 @@ def balance_teams(players, teams):
         balanced[team].append(player)
     return balanced
 
-def display_team_stats(teams, players):
-    total_players = len(teams)
+def display_team_stats(team_name, team_players):
+    total_players = len(team_players)
 
     experienced_players = 0
     inexperienced_players = 0
@@ -42,7 +42,7 @@ def display_team_stats(teams, players):
     player_names = []
     guardians = []
 
-    for player in players:
+    for player in team_players:
         player_names.append(player['name'])
         guardians.extend(player['guardians'])
         total_height += player['height']
